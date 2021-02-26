@@ -1,15 +1,15 @@
 ## usersテーブル
 
-| Column          | Type    | Options     |
-| --------------- | ------  | ----------- |
-| nickname        | string  | null: false |
-| email           | string  | null: false |
-| password        | string  | null: false |
-| last_name       | string  | null: false |
-| first_name      | string  | null: false |
-| last_name_kana  | string  | null: false |
-| first_name_kana | string  | null: false |
-| birthday        | integer | null: false |
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| nickname           | string  | null: false |
+| email              | string  | null: false |
+| encrypted_password | string  | null: false |
+| last_name          | string  | null: false |
+| first_name         | string  | null: false |
+| last_name_kana     | string  | null: false |
+| first_name_kana    | string  | null: false |
+| birthday           | date    | null: false |
 
 ### Association
 
@@ -20,13 +20,13 @@
 
 | Column           | Type         | Options                        |
 | ---------------  | ------------ | ------------------------------ |
-| item_name        | string       | null: false                    |
-| item_description | text         | null: false                    |
-| category         | string       | null: false                    |
-| item_status      | string       | null: false                    |
-| shipping_fee     | string       | null: false                    |
-| area             | string       | null: false                    |
-| delivery_days    | integer      | null: false                    |
+| name             | string       | null: false                    |
+| description      | text         | null: false                    |
+| category_id      | integer       | null: false                    |
+| status_id        | integer      | null: false                    |
+| shipping_fee_id  | integer      | null: false                    |
+| area_id          | integer      | null: false                    |
+| delivery_day_id  | integer      | null: false                    |
 | price            | integer      | null: false                    |
 | user             | references   | null: false, foreign_key: true |
 
@@ -52,11 +52,12 @@
 
 | Column           | Type         | Options                        |
 | ---------------  | ------------ | ------------------------------ |
-| poster_code      | integer      | null: false                    |
-| prefectures      | string       | null: false                    |
+| poster_code      | string       | null: false                    |
+| area_id          | integer      | null: false                    |
 | municipality     | string       | null: false                    |
 | address          | integer      | null: false                    |
-| phone_number     | integer      | null: false                    |
+| building_name    | string       | null: false                    |
+| phone_number     | string       | null: false                    |
 | order            | references   | null: false, foreign_key: true |
 
 ### Association
