@@ -13,8 +13,8 @@
 
 ### Association
 
-- has_many :item
-- has_many :order
+- has_many :items
+- has_many :orders
 
 ## itemsテーブル
 
@@ -33,7 +33,7 @@
 ### Association
 
 - belongs_to :user
-- has_many :order
+- belongs_to :order
 
 ## ordersテーブル
 
@@ -62,4 +62,4 @@
 
 ### Association
 
-- has_one :order
+- belongs_to :order
