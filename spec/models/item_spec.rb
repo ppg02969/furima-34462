@@ -6,6 +6,9 @@ RSpec.describe Item, type: :model do
 
   describe '商品出品機能' do
     context '出品がうまくいくとき' do
+      it '全ての値が正しい時に登録ができる' do
+        expect(@item).to be_valid
+      end
       it '商品名が40字以下だと登録できる' do
         expect(@item).to be_valid
       end
@@ -62,6 +65,21 @@ RSpec.describe Item, type: :model do
       end
       it '価格が半角数字以外だと登録できない' do
         @item.price = "１２あああ"
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Half-width number"
+      end
+      it '全角文字では登録できない' do
+        @item.price = "あああ"
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Half-width number"
+      end
+      it '半角英数混合では登録できない' do
+        @item.price = "111aaa"
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Half-width number"
+      end
+      it '半角英語だけでは登録できない' do
+        @item.price = "test"
         @item.valid?
         expect(@item.errors.full_messages).to include "Price Half-width number"
       end
