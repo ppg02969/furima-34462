@@ -12,12 +12,6 @@ RSpec.describe Item, type: :model do
       it '商品説明が1000字以下だと登録できる' do
         expect(@item).to be_valid
       end
-      it '価格が300円以上だと登録できる' do
-        expect(@item).to be_valid
-      end
-      it '価格が9,999,999円以下だと登録できる' do
-        expect(@item).to be_valid
-      end
     end
 
     context '出品がうまくいかないとき' do
@@ -65,6 +59,15 @@ RSpec.describe Item, type: :model do
         @item.price = "１２あああ"
         @item.valid?
       end
+      it '価格が299円以下の場合は保存できない' do
+        @item.price = 100
+        @item.valid?
+      end
+      it '価格が10,000,000円以上の場合保存できない' do
+        @item.price = 10_000_000
+        @item.valid?
+      end
+
     end
   end
 end
