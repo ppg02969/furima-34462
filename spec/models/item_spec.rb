@@ -38,34 +38,42 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーが選択されていないと登録できない' do
         @item.category_id = 1
         @item.valid?
+        expect(@item.errors.full_messages).to include "Category Select"
       end
       it '商品状態が選択されていないと登録できない' do
         @item.status_id = 1
         @item.valid?
+        expect(@item.errors.full_messages).to include "Status Select"
       end
       it '配送料が選択されていないと登録できない' do
         @item.shipping_fee_id = 1
         @item.valid?
+        expect(@item.errors.full_messages).to include "Shipping fee Select"
       end
       it '発送元が選択されていないと登録できない' do
         @item.area_id = 1
         @item.valid?
+        expect(@item.errors.full_messages).to include "Area Select"
       end
       it '発送までの日数が選択されていないと登録できない' do
         @item.delivery_day_id = 1
         @item.valid?
+        expect(@item.errors.full_messages).to include "Delivery day Select"
       end
       it '価格が半角数字以外だと登録できない' do
         @item.price = "１２あああ"
         @item.valid?
+        expect(@item.errors.full_messages).to include "Price Half-width number"
       end
       it '価格が299円以下の場合は保存できない' do
         @item.price = 100
         @item.valid?
+        expect(@item.errors.full_messages).to include "Price Out of setting range"
       end
       it '価格が10,000,000円以上の場合保存できない' do
-        @item.price = 10_000_000
+        @item.price = 10000000
         @item.valid?
+        expect(@item.errors.full_messages).to include "Price Out of setting range"
       end
 
     end
