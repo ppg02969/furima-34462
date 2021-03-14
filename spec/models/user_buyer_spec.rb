@@ -50,6 +50,11 @@ RSpec.describe UserBuyer, type: :model do
         @user_buyer.valid?
         expect(@user_buyer.errors.full_messages).to include "Phone number is invalid."
       end
+      it '電話番号が英数混合ではと購入できない' do
+        @user_buyer.phone_number = "090aaaabbbb"
+        @user_buyer.valid?
+        expect(@user_buyer.errors.full_messages).to include "Phone number is invalid."
+      end
       it '市区町村が全角でないと登録できない' do
         @user_buyer.municipality = "ﾃｽﾄ"
         @user_buyer.valid?
@@ -59,6 +64,16 @@ RSpec.describe UserBuyer, type: :model do
         @user_buyer.token = nil
         @user_buyer.valid?
         expect(@user_buyer.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'ユーザーidが空では登録できないこと' do
+        @user_buyer.user_id = nil
+        @user_buyer.valid?
+        expect(@user_buyer.errors.full_messages).to include("User can't be blank")
+      end
+      it '商品idが空では登録できないこと' do
+        @user_buyer.item_id = nil
+        @user_buyer.valid?
+        expect(@user_buyer.errors.full_messages).to include("Item can't be blank")
       end
     end
   end 

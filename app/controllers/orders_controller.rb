@@ -1,15 +1,14 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :move_to_index, only: [:edit]
+  before_action :move_to_index, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
+
 
   def index
-    @item = Item.find(params[:item_id])
     @user_buyer = UserBuyer.new
   end
 
   def create
-    #binding.pry
-    @item = Item.find(params[:item_id])
     @user_buyer = UserBuyer.new(buyer_params)
     if @user_buyer.valid?
       pay_item
@@ -21,6 +20,9 @@ class OrdersController < ApplicationController
   end
 
 private
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def buyer_params
     params.require(:user_buyer).permit(:postal_code, :area_id, :municipality, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
@@ -36,7 +38,8 @@ private
   end
 
   def move_to_index
-    unless @item.user == current_user
+    @item = Item.find(params[:item_id])
+    if @item.user_id == current_user.id
       redirect_to root_path
     end
   end
