@@ -12,6 +12,10 @@ RSpec.describe UserBuyer, type: :model do
       it '全ての値が正しい時に購入できる' do
         expect(@user_buyer).to be_valid
       end
+      it '建物名が空でも購入できる' do
+        @user_buyer.building_name = ""
+        expect(@user_buyer).to be_valid
+      end  
     end
 
     context '購入がうまくいかないとき' do
